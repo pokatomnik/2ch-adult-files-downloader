@@ -6,6 +6,7 @@ const catalogList = require('./workers/catalog-list');
 const filter = require('./workers/filter');
 const getThreadsLinks = require('./workers/get-threads-links.js');
 const getPics = require('./workers/get-pics.js');
+const downloadFiles = require('./workers/download-files.js');
 
 const settings = require('./config/settings');
 
@@ -14,9 +15,6 @@ catalogList(settings.catalog)
     .then(allThreads => {
         return filter(allThreads);
     })
-//    .then(threadsNeed => {
-//        return threadsNeed;
-//    })
     .then (threadsNeed => {
         let numbers = [];
         for (let i=0, len=threadsNeed.length; i<len; i++) {
@@ -54,7 +52,7 @@ catalogList(settings.catalog)
                         
                         let currentFile = currentPost.files[k];
                         
-                        files.push(`http://2ch.hk/b/${currentFile.path}`);
+                        files.push(`https://2ch.hk/b/${currentFile.path}`);
                         
                     }
                 }
@@ -62,6 +60,8 @@ catalogList(settings.catalog)
             
         }
     
-        console.log(files);
-        console.log(files.length);
+        return downloadFiles(files);
+    })
+    .then(() => {
+        console.log('downloading started');
     });

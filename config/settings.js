@@ -5,5 +5,7 @@ module.exports = {
         host : '2ch.hk',
         path : '/b/catalog.json'
     },
-    searchFor : /( ?фап )|( ?fap )|( ?фап-)|( ?fap-)/gi
+    searchFor : /( ?фап )|( ?fap )|( ?фап-)|( ?fap-)/gi,
+    waitBeforeNextDownload : 10,
+    outputDirectoryName : 'out'
 }
